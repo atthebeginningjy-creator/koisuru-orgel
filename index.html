@@ -46,7 +46,7 @@
         }
 
         /* ==========================================================================
-           オープニング演出（オルゴールの蓋が開く・フェードイン）
+           オープニング演出（フェードイン）
            ========================================================================== */
         #opening-overlay {
             position: fixed;
@@ -60,7 +60,7 @@
             justify-content: center;
             align-items: center;
             transition: opacity 2.0s ease, transform 2.0s ease;
-            transform-origin: top center; /* 蓋が上に開くようなイメージ */
+            transform-origin: top center;
         }
 
         #opening-overlay.fade-out {
@@ -86,7 +86,7 @@
         .wrapper {
             position: relative;
             z-index: 10;
-            max-width: 500px; /* スマホ閲覧に最適な横幅 */
+            max-width: 500px;
             margin: 0 auto;
             padding: 40px 20px 80px 20px;
             opacity: 0;
@@ -102,7 +102,7 @@
         /* セクション共通 */
         section {
             background: linear-gradient(135deg, #1f160e 0%, var(--bg-box) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.25); /* 繊細な真鍮フレーム */
+            border: 1px solid rgba(212, 175, 55, 0.25);
             box-shadow: 0 10px 30px rgba(0,0,0,0.7), inset 0 0 15px rgba(212,175,55,0.05);
             border-radius: 8px;
             padding: 30px 20px;
@@ -111,7 +111,6 @@
             position: relative;
         }
 
-        /* 装飾的なコーナーライン（高級感を演出） */
         section::before {
             content: '';
             position: absolute;
@@ -149,6 +148,7 @@
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0,0,0,0.8);
             border: 1px solid rgba(212, 175, 55, 0.15);
+            background-color: #111;
         }
 
         .jacket-area img {
@@ -169,7 +169,7 @@
         .catchphrase {
             font-size: 0.85rem;
             color: var(--text-sub);
-            white-space: pre-wrap; /* 改行を反映 */
+            white-space: pre-wrap;
         }
 
         /* ② MUSIC & ③ MV ボタン・動画エリア */
@@ -199,7 +199,7 @@
         .video-container {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* 16:9 アスペクト比 */
+            padding-top: 56.25%;
             border-radius: 4px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
@@ -255,7 +255,6 @@
             border-bottom: none;
         }
 
-        /* フッター */
         footer {
             text-align: center;
             font-size: 0.7rem;
@@ -268,10 +267,8 @@
 </head>
 <body>
 
-    <!-- 粒子背景レイヤー -->
     <canvas id="particles"></canvas>
 
-    <!-- オープニング演出用オーバーレイ -->
     <div id="opening-overlay">
         <div class="opening-box">
             <p style="font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 10px;">Premium Special Page</p>
@@ -279,13 +276,11 @@
         </div>
     </div>
 
-    <!-- メインコンテンツ -->
     <div class="wrapper" id="main-wrapper">
         
         <!-- ① TOP SECTION -->
         <section id="sec-top">
             <div class="jacket-area">
-                <!-- JavaScriptで差し替え -->
                 <img id="lp-jacket" src="" alt="Jacket Image">
             </div>
             <h1 class="main-title" id="lp-title">---</h1>
@@ -295,7 +290,6 @@
         <!-- ② MUSIC SECTION -->
         <section id="sec-music">
             <h2>Music</h2>
-            <!-- JavaScriptでボタンまたは埋め込み動画を自動生成 -->
             <div id="music-content"></div>
         </section>
 
@@ -314,9 +308,7 @@
         <!-- ⑤ SECRET CONTENTS SECTION -->
         <section id="sec-secret">
             <h2>Secret Contents</h2>
-            <ul class="secret-list" id="lp-secret-list">
-                <!-- JavaScriptで動的に追加 -->
-            </ul>
+            <ul class="secret-list" id="lp-secret-list"></ul>
         </section>
 
         <footer>
@@ -324,60 +316,66 @@
         </footer>
     </div>
 
-    <!-- ==========================================================================
-       JavaScript（データ管理 ＆ 演出ロジック）
-       ========================================================================== -->
     <script>
-        /* ----------------------------------------------------------------------
-           【今後の運用・保守用：データ設定エリア】
-           ※新しい楽曲に展開する際は、以下の内容を書き換えるだけで完了します。
-           ---------------------------------------------------------------------- */
+        /* ======================================================================
+           【データ設定エリア】
+           ====================================================================== */
         const CONFIG = {
             title: "恋するオルゴール",
             catchphrase: "あなたへ贈る、小さな音楽の贈り物。", 
             
-            // ジャケット画像のパス (GitHub Pagesにアップロードしたファイル名、または絶対URL)
-            // 例: "jacket_koisuru.jpg" など。現在はサンプルとして同じ階層の「image.png」を指定しています
-            jacketUrl: "image.png", 
+            // アップロードする画像ファイル名
+            jacketUrl: "./image.png", 
 
-            // ② MUSIC (YouTubeの限定公開動画URL、または通常動画のURL)
-            // ボタン形式で別タブで開かせたい場合は、ここにURLを設定します
-            musicYoutubeUrl: "https://www.youtube.com/watch?v=xxxxxxxxx",
+            // ② MUSICの動画リンク（設定済み）
+            musicYoutubeUrl: "https://youtu.be/EyEAoAZDghk",
 
-            // ③ MUSIC VIDEO (公開前は "" のままにすると自動的に「Coming Soon...」になります)
-            // URLを入れると、ページ内に自動でYouTubeの「埋め込みプレイヤー」が表示されます
-            mvYoutubeUrl: "", // 例: "https://www.youtube.com/watch?v=yyyyyyyyy"
+            // ③ MUSIC VIDEOのリンク（公開されたらここにURLを入れてください）
+            mvYoutubeUrl: "", 
 
-            // ④ ARTIST MESSAGE
-            message: `このカードを手に取ってくださり、本当にありがとうございます。
+            // ④ MESSAGEの文章（いただいた本番用メッセージを設定済みです）
+            message: `この度は「星屑パスポート」のカセットテープをご購入いただき、本当にありがとうございます！
+そして、いつも温かい応援を届けてくださる皆さんへ、心から感謝しています。
 
-この「恋するオルゴール」は、大切な人への想いや、心の奥にある優しい記憶をそっと呼び覚ますような、温もりある世界観を大切に作りました。
+この作品は、オタクのいちごさんプロジェクト第一弾として誕生しました。
+「昭和アイドルのキラキラした世界を、今もう一度届けたい。」
+そんな想いを込めて、一曲一曲を大切に制作しました。
 
-オルゴールのネジを巻くときのような、ドキドキする特別な瞬間を、このページを通して何度も楽しんでいただけたら嬉しいです。`,
+「星屑パスポート」は、夢へ向かって一歩踏み出す勇気を歌った曲です。
+皆さんに何度も聴いていただき、口ずさんでもらえるような、長く愛される一曲になってくれたら、とても嬉しいです。
 
-            // ⑤ SECRET CONTENTS (今後追加したい項目を配列で自由に追加・削除可能)
+正式には、私たちは本気で、この曲で紅白歌合戦を目指したいと思っています。
+大きな夢かもしれません。
+でも、その夢を皆さんと一緒に追いかけられたら、それ以上に幸せなことはありません。
+
+これからも、皆さんに笑顔や元気を届けられるよう、全力で頑張ります！
+ぜひ「星屑パスポート」をたくさん聴いて、たくさん広めてくださいね♪
+
+これからも応援、よろしくお願いします！`,
+
+            // ⑤ SECRET CONTENTS
             secretItems: [
-                "限定アザージャケット写真（近日公開予定）",
-                "レコーディング密着メイキング映像",
                 "「恋するオルゴール」セルフライナーノーツ（制作秘話）",
                 "メンバーからの手書きスペシャルメッセージボード"
             ]
         };
 
-        /* ----------------------------------------------------------------------
-           システム処理（変更不要のパーツ）
-           ---------------------------------------------------------------------- */
-        
-        // 1. データのページへの反映
+        /* ======================================================================
+           システム処理
+           ====================================================================== */
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("lp-title").innerText = CONFIG.title;
             document.title = `${CONFIG.title} - 限定特典ページ`;
             document.getElementById("lp-catchphrase").innerText = CONFIG.catchphrase;
-            document.getElementById("lp-jacket").src = CONFIG.jacketUrl;
+            
+            // ジャケット画像のセット
+            const imgEl = document.getElementById("lp-jacket");
+            imgEl.src = CONFIG.jacketUrl;
+
             document.getElementById("lp-message").textContent = CONFIG.message;
             document.getElementById("current-year").innerText = new Date().getFullYear();
 
-            // MUSICコンテンツの生成 (YouTubeリンクボタン)
+            // MUSICボタン
             const musicContent = document.getElementById("music-content");
             if(CONFIG.musicYoutubeUrl) {
                 const btn = document.createElement("a");
@@ -388,10 +386,9 @@
                 musicContent.appendChild(btn);
             }
 
-            // MVコンテンツの生成 (Coming Soon ⇄ 埋め込みプレイヤー切り替え)
+            // MV
             const mvContent = document.getElementById("mv-content");
             if (CONFIG.mvYoutubeUrl) {
-                // YouTubeのURLからVideo IDを抽出
                 let videoId = "";
                 const url = CONFIG.mvYoutubeUrl;
                 if(url.includes("v=")) {
@@ -410,7 +407,7 @@
                 mvContent.innerHTML = `<div class="coming-soon">Coming Soon...</div>`;
             }
 
-            // シークレットコンテンツの生成
+            // シークレット
             const secretList = document.getElementById("lp-secret-list");
             CONFIG.secretItems.forEach(item => {
                 const li = document.createElement("li");
@@ -419,22 +416,20 @@
                 secretList.appendChild(li);
             });
 
-            // 2. オープニング演出のトリガー（読み込み後1秒後にフェードアウト開始）
+            // 演出トリガー
             setTimeout(() => {
                 const overlay = document.getElementById("opening-overlay");
                 const wrapper = document.getElementById("main-wrapper");
-                
                 overlay.classList.add("fade-out");
                 wrapper.classList.add("visible");
             }, 1000);
         });
 
-        /* 3. 幻想的な「優しく漂う星屑・光の粒子」アニメーション (Canvas) */
+        // 粒子アニメーション
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
-
         let dots = [];
-        const maxDots = 25; // 重くならないように粒子数を最適化
+        const maxDots = 25;
 
         function resize() {
             canvas.width = window.innerWidth;
@@ -446,17 +441,15 @@
         class Dot {
             constructor() {
                 this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height + canvas.height; // 画面下から湧き上がる
+                this.y = Math.random() * canvas.height + canvas.height;
                 this.size = Math.random() * 1.5 + 0.5;
-                this.speedY = Math.random() * 0.4 + 0.1; // 優しく漂う速度
+                this.speedY = Math.random() * 0.4 + 0.1;
                 this.speedX = Math.sin(Math.random() * 2) * 0.2;
                 this.alpha = Math.random() * 0.5 + 0.2;
-                this.fadeSpeed = Math.random() * 0.005 + 0.002;
             }
             update() {
                 this.y -= this.speedY;
                 this.x += this.speedX;
-                // 上に行くほど、または時間経過でランダムにフェードアウト
                 if (this.y < 0) {
                     this.y = canvas.height;
                     this.x = Math.random() * canvas.width;
@@ -465,17 +458,16 @@
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(243, 229, 171, ${this.alpha})`; // アイボリー・ゴールドの光
+                ctx.fillStyle = `rgba(243, 229, 171, ${this.alpha})`;
                 ctx.shadowBlur = 4;
                 ctx.shadowColor = '#d4af37';
                 ctx.fill();
             }
         }
 
-        // 粒子初期化
         for (let i = 0; i < maxDots; i++) {
             let d = new Dot();
-            d.y = Math.random() * canvas.height; // 初回は画面全体に散らす
+            d.y = Math.random() * canvas.height;
             dots.push(d);
         }
 
