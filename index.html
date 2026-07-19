@@ -228,6 +228,15 @@
             color: var(--text-main);
         }
 
+        .message-signature {
+            text-align: right;
+            margin-top: 25px;
+            font-size: 0.95rem;
+            color: var(--gold-light);
+            line-height: 1.6;
+            padding-right: 10px;
+        }
+
         /* ⑤ SECRET CONTENTS セクション */
         .secret-list {
             list-style: none;
@@ -303,6 +312,7 @@
         <section id="sec-message">
             <h2>Message</h2>
             <p class="message-text" id="lp-message">---</p>
+            <div class="message-signature" id="lp-signature"></div>
         </section>
 
         <!-- ⑤ SECRET CONTENTS SECTION -->
@@ -342,18 +352,22 @@
 「星屑パスポート」は、夢へ向かって一歩踏み出す勇気を歌った曲です。
 皆さんに何度も聴いていただき、口ずさんでもらえるような、長く愛される一曲になってくれたら、とても嬉しいです。
 
-正式には、私たちは本気で、この曲で紅白歌合戦を目指したいと思っています。
+そして、私たちは本気で、この曲で紅白歌合戦を目指したいと思っています。
 大きな夢かもしれません。
 でも、その夢を皆さんと一緒に追いかけられたら、それ以上に幸せなことはありません。
 
 これからも、皆さんに笑顔や元気を届けられるよう、全力で頑張ります！
 ぜひ「星屑パスポート」をたくさん聴いて、たくさん広めてくださいね♪
-
 これからも応援、よろしくお願いします！`,
 
-            // ⑤ SECRET CONTENTS（どちらも Coming Soon... に設定しました）
+            // 署名（メンバー名）
+            signature: `恋するオルゴール
+早坂恵美
+宮本直美`,
+
+            // ⑤ SECRET CONTENTS
             secretItems: [
-                "「恋するオルゴール」セルフライナーノーツ（制作秘話） - Coming Soon...",
+                "「恋するオルゴール」（制作秘話） - Coming Soon...",
                 "メンバーからの手書きスペシャルメッセージボード - Coming Soon..."
             ]
         };
@@ -370,6 +384,7 @@
             imgEl.src = CONFIG.jacketUrl;
 
             document.getElementById("lp-message").textContent = CONFIG.message;
+            document.getElementById("lp-signature").textContent = CONFIG.signature;
             document.getElementById("current-year").innerText = new Date().getFullYear();
 
             // MUSICボタン
