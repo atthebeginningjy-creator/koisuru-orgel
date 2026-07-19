@@ -323,17 +323,15 @@
         const CONFIG = {
             title: "恋するオルゴール",
             catchphrase: "あなたへ贈る、小さな音楽の贈り物。", 
-            
-            // アップロードする画像ファイル名
             jacketUrl: "./image.png", 
 
-            // ② MUSICの動画リンク（設定済み）
+            // ② MUSICの動画リンク
             musicYoutubeUrl: "https://youtu.be/EyEAoAZDghk",
 
-            // ③ MUSIC VIDEOのリンク（公開されたらここにURLを入れてください）
+            // ③ MUSIC VIDEOのリンク（Coming Soon）
             mvYoutubeUrl: "", 
 
-            // ④ MESSAGEの文章（いただいた本番用メッセージを設定済みです）
+            // ④ MESSAGEの文章
             message: `この度は「星屑パスポート」のカセットテープをご購入いただき、本当にありがとうございます！
 そして、いつも温かい応援を届けてくださる皆さんへ、心から感謝しています。
 
@@ -353,10 +351,10 @@
 
 これからも応援、よろしくお願いします！`,
 
-            // ⑤ SECRET CONTENTS
+            // ⑤ SECRET CONTENTS（どちらも Coming Soon... に設定しました）
             secretItems: [
-                "「恋するオルゴール」セルフライナーノーツ（制作秘話）",
-                "メンバーからの手書きスペシャルメッセージボード"
+                "「恋するオルゴール」セルフライナーノーツ（制作秘話） - Coming Soon...",
+                "メンバーからの手書きスペシャルメッセージボード - Coming Soon..."
             ]
         };
 
@@ -368,7 +366,6 @@
             document.title = `${CONFIG.title} - 限定特典ページ`;
             document.getElementById("lp-catchphrase").innerText = CONFIG.catchphrase;
             
-            // ジャケット画像のセット
             const imgEl = document.getElementById("lp-jacket");
             imgEl.src = CONFIG.jacketUrl;
 
