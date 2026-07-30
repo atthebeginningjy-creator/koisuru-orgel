@@ -238,30 +238,46 @@
         }
 
         /* ⑤ SECRET CONTENTS セクション */
-        .secret-list {
-            list-style: none;
+        .secret-block {
+            margin-bottom: 25px;
             text-align: left;
-            padding: 0 10px;
+            padding: 0 5px;
         }
 
-        .secret-item {
-            font-size: 0.85rem;
-            padding: 12px 0;
-            border-bottom: 1px dashed rgba(214, 175, 55, 0.15);
-            color: var(--text-sub);
+        .secret-title {
+            font-size: 0.9rem;
+            color: var(--gold-light);
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
         }
 
-        .secret-item::before {
+        .secret-title::before {
             content: '✦';
             color: var(--gold-primary);
-            margin-right: 10px;
-            font-size: 0.75rem;
+            margin-right: 8px;
+            font-size: 0.8rem;
         }
 
-        .secret-item:last-child {
-            border-bottom: none;
+        .board-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .board-img-wrap {
+            width: 100%;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .board-img-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         footer {
@@ -318,7 +334,27 @@
         <!-- ⑤ SECRET CONTENTS SECTION -->
         <section id="sec-secret">
             <h2>Secret Contents</h2>
-            <ul class="secret-list" id="lp-secret-list"></ul>
+            
+            <!-- シークレット1：制作秘話 (Coming Soon) -->
+            <div class="secret-block">
+                <div class="secret-title">「恋するオルゴール」（制作秘話）</div>
+                <div class="coming-soon" style="padding: 5px 0 15px 20px; text-align: left;">Coming Soon...</div>
+            </div>
+
+            <hr style="border: none; border-top: 1px dashed rgba(214, 175, 55, 0.15); margin-bottom: 20px;">
+
+            <!-- シークレット2：手書きメッセージボード (公開) -->
+            <div class="secret-block">
+                <div class="secret-title">メンバーからの手書きスペシャルメッセージボード</div>
+                <div class="board-gallery">
+                    <div class="board-img-wrap">
+                        <img src="./board1.png" alt="早坂恵美 手書きメッセージボード">
+                    </div>
+                    <div class="board-img-wrap">
+                        <img src="./board2.png" alt="宮本直美 手書きメッセージボード">
+                    </div>
+                </div>
+            </div>
         </section>
 
         <footer>
@@ -363,13 +399,7 @@
             // 署名（メンバー名）
             signature: `恋するオルゴール
 早坂恵美
-宮本直美`,
-
-            // ⑤ SECRET CONTENTS
-            secretItems: [
-                "「恋するオルゴール」（制作秘話） - Coming Soon...",
-                "メンバーからの手書きスペシャルメッセージボード - Coming Soon..."
-            ]
+宮本直美`
         };
 
         /* ======================================================================
@@ -418,15 +448,6 @@
             } else {
                 mvContent.innerHTML = `<div class="coming-soon">Coming Soon...</div>`;
             }
-
-            // シークレット
-            const secretList = document.getElementById("lp-secret-list");
-            CONFIG.secretItems.forEach(item => {
-                const li = document.createElement("li");
-                li.className = "secret-item";
-                li.innerText = item;
-                secretList.appendChild(li);
-            });
 
             // 演出トリガー
             setTimeout(() => {
