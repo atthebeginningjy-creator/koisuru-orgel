@@ -259,6 +259,11 @@
             font-size: 0.8rem;
         }
 
+        .secret-content-body {
+            text-align: center;
+            margin-top: 15px;
+        }
+
         .board-gallery {
             display: flex;
             flex-direction: column;
@@ -335,10 +340,10 @@
         <section id="sec-secret">
             <h2>Secret Contents</h2>
             
-            <!-- シークレット1：制作秘話 (Coming Soon) -->
+            <!-- シークレット1：制作秘話 -->
             <div class="secret-block">
                 <div class="secret-title">「恋するオルゴール」（制作秘話）</div>
-                <div class="coming-soon" style="padding: 5px 0 15px 20px; text-align: left;">Coming Soon...</div>
+                <div class="secret-content-body" id="secret1-content"></div>
             </div>
 
             <hr style="border: none; border-top: 1px dashed rgba(214, 175, 55, 0.15); margin-bottom: 20px;">
@@ -376,6 +381,10 @@
 
             // ③ MUSIC VIDEOのリンク（Coming Soon）
             mvYoutubeUrl: "", 
+
+            // ⑤ SECRET 1 (制作秘話) の設定
+            secret1Url: "https://youtu.be/EyEAoAZDghk", // リンク先URL（不要な場合は "" ）
+            secret1ImgUrl: "",                          // 画像パス（例: "./secret1.png" / 不要な場合は "" ）
 
             // ④ MESSAGEの文章
             message: `この度は「星屑パスポート」のカセットテープをご購入いただき、本当にありがとうございます！
@@ -448,6 +457,28 @@
             } else {
                 mvContent.innerHTML = `<div class="coming-soon">Coming Soon...</div>`;
             }
+
+            // SECRET 1 (制作秘話) 処理
+            const secret1Content = document.getElementById("secret1-content");
+            let secret1Html = "";
+
+            if (CONFIG.secret1ImgUrl) {
+                secret1Html += `
+                    <div class="board-img-wrap" style="margin-bottom: 15px;">
+                        <img src="${CONFIG.secret1ImgUrl}" alt="制作秘話">
+                    </div>`;
+            }
+
+            if (CONFIG.secret1Url) {
+                secret1Html += `
+                    <a href="${CONFIG.secret1Url}" target="_blank" class="btn-gold">制作秘話を見る</a>`;
+            }
+
+            if (!CONFIG.secret1ImgUrl && !CONFIG.secret1Url) {
+                secret1Html = `<div class="coming-soon" style="padding: 5px 0 15px 20px; text-align: left;">Coming Soon...</div>`;
+            }
+
+            secret1Content.innerHTML = secret1Html;
 
             // 演出トリガー
             setTimeout(() => {
