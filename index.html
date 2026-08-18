@@ -277,6 +277,11 @@
             overflow: hidden;
             border: 1px solid rgba(212, 175, 55, 0.3);
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .board-img-wrap:hover {
+            transform: scale(1.02);
         }
 
         .board-img-wrap img {
@@ -346,7 +351,7 @@
                 <div class="secret-content-body" id="secret1-content"></div>
             </div>
 
-            <hr style="border: none; border-top: 1px dashed rgba(214, 175, 55, 0.15); margin-bottom: 20px;">
+            <hr style="border: none; border-top: 1px dashed rgba(214, 175, 55, 0.15); margin-bottom: 25px;">
 
             <!-- シークレット2：手書きメッセージボード (公開) -->
             <div class="secret-block">
@@ -383,8 +388,8 @@
             mvYoutubeUrl: "", 
 
             // ⑤ SECRET 1 (制作秘話) の設定
-            secret1Url: "https://youtu.be/EyEAoAZDghk", // リンク先URL（不要な場合は "" ）
-            secret1ImgUrl: "",                          // 画像パス（例: "./secret1.png" / 不要な場合は "" ）
+            secret1Url: "https://youtu.be/wwAPJI-d3TM",                           // 制作秘話YouTubeリンク
+            secret1ImgUrl: "./ChatGPT Image 2026年8月18日 13_28_52_2.png",      // 元ファイル名の画像パス
 
             // ④ MESSAGEの文章
             message: `この度は「星屑パスポート」のカセットテープをご購入いただき、本当にありがとうございます！
@@ -395,11 +400,11 @@
 そんな想いを込めて、一曲一曲を大切に制作しました。
 
 「星屑パスポート」は、夢へ向かって一歩踏み出す勇気を歌った曲です。
-皆さんに何度も聴いていただき、口ずさんでもらえるような、長く愛される一曲になってくれたら、とても嬉しいです。
+皆さんに何度も聴いていただき、口ずさんで貰えるような、長く愛される一曲になってくれたら、とても嬉しいです。
 
 そして、私たちは本気で、この曲で紅白歌合戦を目指したいと思っています。
 大きな夢かもしれません。
-底の夢を皆さんと一緒に追いかけられたら、それ以上に幸せなことはありません。
+でもこの夢を皆さんと一緒に追いかけられたら、それ以上に幸せなことはありません。
 
 これからも、皆さんに笑顔や元気を届けられるよう、全力で頑張ります！
 ぜひ「星屑パスポート」をたくさん聴いて、たくさん広めてくださいね♪
@@ -465,7 +470,9 @@
             if (CONFIG.secret1ImgUrl) {
                 secret1Html += `
                     <div class="board-img-wrap" style="margin-bottom: 15px;">
-                        <img src="${CONFIG.secret1ImgUrl}" alt="制作秘話">
+                        <a href="${CONFIG.secret1Url || '#'}" target="_blank">
+                            <img src="${CONFIG.secret1ImgUrl}" alt="制作秘話 デビュー秘話">
+                        </a>
                     </div>`;
             }
 
