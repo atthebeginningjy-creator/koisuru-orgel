@@ -6,7 +6,7 @@
     <title>星屑パスポート / 恋するオルゴール</title>
     <style>
         /* =========================================
-           Special Thanks オープニング（2秒で自動遷移）
+           Special Thanks オープニング（流れ星演出）
         ========================================= */
         #splash-screen {
             position: fixed; 
@@ -14,15 +14,33 @@
             left: 0; 
             width: 100%; 
             height: 100%;
-            background: linear-gradient(135deg, #00c6ff, #0072ff, #ff7e5f);
+            background: linear-gradient(135deg, #1a0b2e, #4b1d52, #e57373);
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             justify-content: center;
             z-index: 9999; 
             transition: opacity 1.5s ease;
+            overflow: hidden;
         }
-        
+
+        /* 流れ星アニメーション */
+        .shooting-star {
+            position: absolute; 
+            width: 100px; 
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
+            animation: shooting 2s linear infinite;
+        }
+        .star1 { top: 20%; left: -100px; animation-delay: 0s; }
+        .star2 { top: 40%; left: -100px; animation-delay: 0.8s; }
+        .star3 { top: 60%; left: -100px; animation-delay: 1.5s; }
+
+        @keyframes shooting {
+            0% { transform: translateX(0) translateY(0) rotate(-30deg); opacity: 1; }
+            100% { transform: translateX(120vw) translateY(60vh) rotate(-30deg); opacity: 0; }
+        }
+
         .splash-thanks { 
             font-size: 2.4rem; 
             font-style: italic; 
@@ -30,6 +48,7 @@
             margin-bottom: 15px; 
             color: #fff; 
             font-family: 'Georgia', 'Times New Roman', serif;
+            z-index: 10;
         }
         
         .splash-sub {
@@ -38,6 +57,7 @@
             margin-bottom: 30px;
             color: #fff;
             opacity: 0.9;
+            z-index: 10;
         }
 
         .splash-main { 
@@ -46,17 +66,18 @@
             letter-spacing: 2px; 
             color: #fff; 
             text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+            z-index: 10;
         }
 
         /* =========================================
-           LP全体のデザイン（リッチ・夏仕様）
+           LP全体のデザイン（ストロベリーピンクとホワイト基調）
         ========================================= */
         body {
             margin: 0; 
             padding: 0; 
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-            color: #fff; 
+            background: linear-gradient(135deg, #ffe6f2 0%, #ffcce6 50%, #ffffff 100%);
+            color: #4a4a4a; 
             text-align: center; 
             min-height: 100vh;
         }
@@ -75,21 +96,21 @@
             width: 100%; 
             height: auto; 
             border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 35px rgba(255,153,204,0.4);
             display: block; 
-            border: 2px solid rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.8);
         }
 
-        /* セクション（ガラスモーフィズム＋夏色のアクセント） */
+        /* セクション（可愛らしいガラスモーフィズム） */
         .section {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 16px; 
             padding: 35px 25px; 
             margin: 30px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 153, 204, 0.2);
             position: relative; 
             overflow: hidden;
         }
@@ -100,8 +121,8 @@
             top: 0; 
             left: 0; 
             right: 0; 
-            height: 3px;
-            background: linear-gradient(90deg, #00c6ff, #ff7e5f);
+            height: 4px;
+            background: linear-gradient(90deg, #ff99cc, #ff66a3);
         }
 
         .section h2 { 
@@ -109,18 +130,18 @@
             margin-top: 0; 
             margin-bottom: 20px; 
             letter-spacing: 1px; 
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            color: #ff66a3; 
         }
 
         .media-wrapper {
             position: relative; 
             width: 100%; 
             padding-top: 56.5%;
-            background: #000; 
+            background: #ffe6f2; 
             border-radius: 10px; 
             overflow: hidden; 
             margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px dashed #ff99cc;
         }
 
         .media-wrapper iframe { 
@@ -136,7 +157,7 @@
             text-align: left; 
             line-height: 1.9; 
             font-size: 0.95rem; 
-            color: rgba(255, 255, 255, 0.9);
+            color: #4a4a4a;
         }
 
         /* =========================================
@@ -151,39 +172,41 @@
         
         .youtube-link:hover {
             transform: scale(1.03);
-            filter: brightness(1.1);
+            filter: brightness(1.05);
         }
 
         .secret-img {
             width: 100%;
             height: auto;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            border: 2px solid rgba(255, 153, 204, 0.4); /* オルゴールっぽいピンクの枠線 */
+            box-shadow: 0 10px 25px rgba(255,153,204,0.4);
+            border: 2px solid rgba(255, 153, 204, 0.8);
         }
 
         .link-text {
             text-align: center;
-            color: #ff99cc;
+            color: #ff66a3;
             margin-top: 12px;
             font-weight: bold;
             font-size: 1.1rem;
             letter-spacing: 1.5px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
 
         footer { 
             padding: 40px 0; 
             font-size: 0.8rem; 
             letter-spacing: 1px; 
-            opacity: 0.6; 
+            color: #ff99cc; 
         }
     </style>
 </head>
 <body>
 
-    <!-- オープニング演出 -->
+    <!-- オープニング演出（流れ星） -->
     <div id="splash-screen">
+        <div class="shooting-star star1"></div>
+        <div class="shooting-star star2"></div>
+        <div class="shooting-star star3"></div>
         <div class="splash-thanks">Special Thanks</div>
         <div class="splash-sub">For All Purchasers</div>
         <div class="splash-main">星屑パスポート</div>
@@ -191,26 +214,26 @@
 
     <!-- メインLP -->
     <div class="container">
-        <!-- ジャケット画像部分はご自身の画像パスに合わせて適宜変更してください -->
         <header class="hero">
+            <!-- ※お手元のジャケット画像のファイル名に合わせて変更してください -->
             <img src="ジャケット画像のファイル名.png" alt="星屑パスポート ジャケット写真" class="jacket-img">
         </header>
 
         <section class="section">
             <h2>🎵 楽曲を聴く</h2>
-            <div style="padding: 40px; background: rgba(0,0,0,0.2); border-radius: 10px; border: 1px dashed rgba(255,255,255,0.2);">
-                <p style="opacity: 0.7; font-size: 0.9rem;">（ここに「星屑パスポート」の音源プレイヤーが入ります）</p>
+            <div style="padding: 40px; background: rgba(255,204,229,0.3); border-radius: 10px; border: 1px dashed #ff99cc;">
+                <p style="opacity: 0.8; font-size: 0.9rem;">（ここに「星屑パスポート」の音源プレイヤーが入ります）</p>
             </div>
         </section>
 
         <section class="section">
             <h2>💃 みんなで踊ろう振付動画</h2>
             <div class="media-wrapper">
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.7;">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #ff99cc;">
                     振付動画 準備中
                 </div>
             </div>
-            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 15px;">サビの振付を覚えて一緒に踊ろう！</p>
+            <p style="font-size: 0.9rem; margin-top: 15px; color: #666;">サビの振付を覚えて一緒に踊ろう！</p>
         </section>
 
         <section class="section">
@@ -218,7 +241,7 @@
             <div class="story-text">
                 <p>デビュー曲『星屑パスポート』の感想などなど、恋オルファン必見の裏話を大公開！</p>
                 
-                <!-- 新しく追加した画像リンクエリア -->
+                <!-- 画像リンクエリア -->
                 <a href="https://youtu.be/wwAPJI-d3TM" target="_blank" rel="noopener noreferrer" class="youtube-link">
                     <img src="ChatGPT Image 2026年8月18日 13_28_52.png" alt="恋するオルゴール デビュー秘話" class="secret-img">
                     <div class="link-text">▶︎ 制作秘話の動画を見る</div>
