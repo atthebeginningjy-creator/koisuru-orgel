@@ -3,516 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>恋するオルゴール - 限定特典ページ</title>
+    <title>星屑パスポート / 恋するオルゴール</title>
     <style>
-        /* ==========================================================================
-           デザイン設定（カラー・フォントなど）
-           ========================================================================== */
-        :root {
-            --bg-dark: #0a0e17;      /* 深いネイビー・夜空 */
-            --bg-box: #1a120b;       /* ダークブラウン・アンティーク木目調 */
-            --gold-primary: #d4af37; /* 真鍮・ゴールド */
-            --gold-light: #f3e5ab;   /* アイボリー・温かみのある光 */
-            --text-main: #f5f5f4;    /* メイン文字色（少し温かみのある白） */
-            --text-sub: #b5a48c;     /* サブ文字色（アンティークベージュ） */
+        /* =========================================
+           Special Thanks オープニング（2秒で自動遷移）
+        ========================================= */
+        #splash-screen {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: linear-gradient(135deg, #00c6ff, #0072ff, #ff7e5f);
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            z-index: 9999; 
+            transition: opacity 1.5s ease;
+        }
+        
+        .splash-thanks { 
+            font-size: 2.4rem; 
+            font-style: italic; 
+            letter-spacing: 6px; 
+            margin-bottom: 15px; 
+            color: #fff; 
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+        
+        .splash-sub {
+            font-size: 0.95rem;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            color: #fff;
+            opacity: 0.9;
         }
 
-        /* 全体リセット & ベーススタイル */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        .splash-main { 
+            font-size: 2.8rem; 
+            font-weight: bold; 
+            letter-spacing: 2px; 
+            color: #fff; 
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
         }
 
+        /* =========================================
+           LP全体のデザイン（リッチ・夏仕様）
+        ========================================= */
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Times New Roman', 'Noto Serif JP', 'Shippori Mincho', serif;
-            line-height: 1.8;
-            letter-spacing: 0.08em;
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: #fff; 
+            text-align: center; 
+            min-height: 100vh;
         }
 
-        /* 粒子（星屑）の背景レイヤー */
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            padding: 30px 20px; 
         }
 
-        /* ==========================================================================
-           オープニング演出（フェードイン）
-           ========================================================================== */
-        #opening-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 2.0s ease, transform 2.0s ease;
-            transform-origin: top center;
+        .hero { 
+            margin: 10px 0 30px 0; 
         }
 
-        #opening-overlay.fade-out {
-            opacity: 0;
-            transform: scaleY(0);
-            pointer-events: none;
+        .jacket-img {
+            width: 100%; 
+            height: auto; 
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            display: block; 
+            border: 2px solid rgba(255,255,255,0.2);
         }
 
-        .opening-box {
-            text-align: center;
-            color: var(--gold-primary);
-            animation: pulse 2s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-
-        /* ==========================================================================
-           メインコンテンツ・レイアウト
-           ========================================================================== */
-        .wrapper {
-            position: relative;
-            z-index: 10;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 40px 20px 80px 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 2.5s ease 0.5s, transform 2.5s ease 0.5s;
-        }
-
-        .wrapper.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* セクション共通 */
-        section {
-            background: linear-gradient(135deg, #1f160e 0%, var(--bg-box) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7), inset 0 0 15px rgba(212,175,55,0.05);
-            border-radius: 8px;
-            padding: 30px 20px;
-            margin-bottom: 40px;
-            text-align: center;
-            position: relative;
-        }
-
-        section::before {
-            content: '';
-            position: absolute;
-            top: 5px; left: 5px; right: 5px; bottom: 5px;
-            border: 1px solid rgba(212, 175, 55, 0.05);
-            border-radius: 6px;
-            pointer-events: none;
-        }
-
-        h2 {
-            font-size: 1.1rem;
-            color: var(--gold-primary);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        h2::before, h2::after {
-            content: '♦';
-            font-size: 0.6rem;
-            margin: 0 10px;
-            color: var(--gold-primary);
-            opacity: 0.7;
-        }
-
-        /* ① TOP セクション */
-        .jacket-area {
-            position: relative;
-            width: 85%;
-            margin: 0 auto 25px auto;
-            border-radius: 4px;
+        /* セクション（ガラスモーフィズム＋夏色のアクセント） */
+        .section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px; 
+            padding: 35px 25px; 
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            position: relative; 
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            background-color: #111;
         }
 
-        .jacket-area img {
-            width: 100%;
-            display: block;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
+        .section::before {
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            height: 3px;
+            background: linear-gradient(90deg, #00c6ff, #ff7e5f);
         }
 
-        .main-title {
-            font-size: 1.6rem;
-            color: var(--gold-light);
-            text-shadow: 0 0 10px rgba(243, 229, 171, 0.3);
+        .section h2 { 
+            font-size: 1.4rem; 
+            margin-top: 0; 
+            margin-bottom: 20px; 
+            letter-spacing: 1px; 
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .media-wrapper {
+            position: relative; 
+            width: 100%; 
+            padding-top: 56.5%;
+            background: #000; 
+            border-radius: 10px; 
+            overflow: hidden; 
             margin-bottom: 15px;
-            font-weight: normal;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .catchphrase {
-            font-size: 0.85rem;
-            color: var(--text-sub);
-            white-space: pre-wrap;
+        .media-wrapper iframe { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+        }
+        
+        .story-text {
+            text-align: left; 
+            line-height: 1.9; 
+            font-size: 0.95rem; 
+            color: rgba(255, 255, 255, 0.9);
         }
 
-        /* ② MUSIC & ③ MV ボタン・動画エリア */
-        .btn-gold {
-            display: inline-block;
-            width: 90%;
-            max-width: 280px;
-            padding: 14px 0;
-            background: linear-gradient(135deg, #d4af37 0%, #aa841e 100%);
-            color: #1a120b;
+        /* =========================================
+           制作秘話リンク用追加スタイル
+        ========================================= */
+        .youtube-link {
+            display: block;
+            margin-top: 20px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 0.95rem;
-            border-radius: 40px;
-            box-shadow: 0 4px 15px rgba(214,175,55,0.3);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            letter-spacing: 0.15em;
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+        
+        .youtube-link:hover {
+            transform: scale(1.03);
+            filter: brightness(1.1);
         }
 
-        .btn-gold:active {
-            transform: scale(0.97);
-            box-shadow: 0 2px 5px rgba(214,175,55,0.2);
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%;
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border: none;
-        }
-
-        .coming-soon {
-            font-size: 1rem;
-            color: var(--text-sub);
-            font-style: italic;
-            letter-spacing: 0.15em;
-            padding: 20px 0;
-        }
-
-        /* ④ MESSAGE セクション */
-        .message-text {
-            font-size: 0.9rem;
-            text-align: left;
-            padding: 0 10px;
-            white-space: pre-wrap;
-            color: var(--text-main);
-        }
-
-        .message-signature {
-            text-align: right;
-            margin-top: 25px;
-            font-size: 0.95rem;
-            color: var(--gold-light);
-            line-height: 1.6;
-            padding-right: 10px;
-        }
-
-        /* ⑤ SECRET CONTENTS セクション */
-        .secret-block {
-            margin-bottom: 25px;
-            text-align: left;
-            padding: 0 5px;
-        }
-
-        .secret-title {
-            font-size: 0.9rem;
-            color: var(--gold-light);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-        }
-
-        .secret-title::before {
-            content: '✦';
-            color: var(--gold-primary);
-            margin-right: 8px;
-            font-size: 0.8rem;
-        }
-
-        .board-gallery {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .board-img-wrap {
-            width: 100%;
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-
-        .board-img-wrap img {
+        .secret-img {
             width: 100%;
             height: auto;
-            display: block;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255, 153, 204, 0.4); /* オルゴールっぽいピンクの枠線 */
         }
 
-        footer {
+        .link-text {
             text-align: center;
-            font-size: 0.7rem;
-            color: var(--text-sub);
-            opacity: 0.5;
-            margin-top: 20px;
-            letter-spacing: 0.1em;
+            color: #ff99cc;
+            margin-top: 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        footer { 
+            padding: 40px 0; 
+            font-size: 0.8rem; 
+            letter-spacing: 1px; 
+            opacity: 0.6; 
         }
     </style>
 </head>
 <body>
 
-    <canvas id="particles"></canvas>
-
-    <div id="opening-overlay">
-        <div class="opening-box">
-            <p style="font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 10px;">Premium Special Page</p>
-            <div style="font-size: 1.5rem; font-weight: 300;">Loading...</div>
-        </div>
+    <!-- オープニング演出 -->
+    <div id="splash-screen">
+        <div class="splash-thanks">Special Thanks</div>
+        <div class="splash-sub">For All Purchasers</div>
+        <div class="splash-main">星屑パスポート</div>
     </div>
 
-    <div class="wrapper" id="main-wrapper">
-        
-        <!-- ① TOP SECTION -->
-        <section id="sec-top">
-            <div class="jacket-area">
-                <img id="lp-jacket" src="" alt="Jacket Image">
+    <!-- メインLP -->
+    <div class="container">
+        <!-- ジャケット画像部分はご自身の画像パスに合わせて適宜変更してください -->
+        <header class="hero">
+            <img src="ジャケット画像のファイル名.png" alt="星屑パスポート ジャケット写真" class="jacket-img">
+        </header>
+
+        <section class="section">
+            <h2>🎵 楽曲を聴く</h2>
+            <div style="padding: 40px; background: rgba(0,0,0,0.2); border-radius: 10px; border: 1px dashed rgba(255,255,255,0.2);">
+                <p style="opacity: 0.7; font-size: 0.9rem;">（ここに「星屑パスポート」の音源プレイヤーが入ります）</p>
             </div>
-            <h1 class="main-title" id="lp-title">---</h1>
-            <p class="catchphrase" id="lp-catchphrase">---</p>
         </section>
 
-        <!-- ② MUSIC SECTION -->
-        <section id="sec-music">
-            <h2>Music</h2>
-            <div id="music-content"></div>
-        </section>
-
-        <!-- ③ MUSIC VIDEO SECTION -->
-        <section id="sec-mv">
-            <h2>Music Video</h2>
-            <div id="mv-content"></div>
-        </section>
-
-        <!-- ④ MESSAGE SECTION -->
-        <section id="sec-message">
-            <h2>Message</h2>
-            <p class="message-text" id="lp-message">---</p>
-            <div class="message-signature" id="lp-signature"></div>
-        </section>
-
-        <!-- ⑤ SECRET CONTENTS SECTION -->
-        <section id="sec-secret">
-            <h2>Secret Contents</h2>
-            
-            <!-- シークレット1：制作秘話 (Coming Soon) -->
-            <div class="secret-block">
-                <div class="secret-title">「恋するオルゴール」（制作秘話）</div>
-                <div class="coming-soon" style="padding: 5px 0 15px 20px; text-align: left;">Coming Soon...</div>
-            </div>
-
-            <hr style="border: none; border-top: 1px dashed rgba(214, 175, 55, 0.15); margin-bottom: 20px;">
-
-            <!-- シークレット2：手書きメッセージボード (公開) -->
-            <div class="secret-block">
-                <div class="secret-title">メンバーからの手書きスペシャルメッセージボード</div>
-                <div class="board-gallery">
-                    <div class="board-img-wrap">
-                        <img src="./早坂.PNG" alt="早坂恵美 手書きメッセージボード">
-                    </div>
-                    <div class="board-img-wrap">
-                        <img src="./宮本.PNG" alt="宮本直美 手書きメッセージボード">
-                    </div>
+        <section class="section">
+            <h2>💃 みんなで踊ろう振付動画</h2>
+            <div class="media-wrapper">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.7;">
+                    振付動画 準備中
                 </div>
             </div>
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 15px;">サビの振付を覚えて一緒に踊ろう！</p>
         </section>
 
-        <footer>
-            &copy; <span id="current-year"></span> Premium Music Card. All Rights Reserved.
-        </footer>
+        <section class="section">
+            <h2>📖 制作秘話</h2>
+            <div class="story-text">
+                <p>デビュー曲『星屑パスポート』の感想などなど、恋オルファン必見の裏話を大公開！</p>
+                
+                <!-- 新しく追加した画像リンクエリア -->
+                <a href="https://youtu.be/wwAPJI-d3TM" target="_blank" rel="noopener noreferrer" class="youtube-link">
+                    <img src="ChatGPT Image 2026年8月18日 13_28_52.png" alt="恋するオルゴール デビュー秘話" class="secret-img">
+                    <div class="link-text">▶︎ 制作秘話の動画を見る</div>
+                </a>
+            </div>
+        </section>
+
+        <footer>&copy; オタクのいちごさん All Rights Reserved.</footer>
     </div>
 
+    <!-- 自動切り替えスクリプト（2秒後にフェードアウト） -->
     <script>
-        /* ======================================================================
-           【データ設定エリア】
-           ====================================================================== */
-        const CONFIG = {
-            title: "恋するオルゴール",
-            catchphrase: "あなたへ贈る、小さな音楽の贈り物。", 
-            jacketUrl: "./image.png", 
-
-            // ② MUSICの動画リンク
-            musicYoutubeUrl: "https://youtu.be/EyEAoAZDghk",
-
-            // ③ MUSIC VIDEOのリンク（Coming Soon）
-            mvYoutubeUrl: "", 
-
-            // ④ MESSAGEの文章
-            message: `この度は「星屑パスポート」のカセットテープをご購入いただき、本当にありがとうございます！
-そして、いつも温かい応援を届けてくださる皆さんへ、心から感謝しています。
-
-この作品は、オタクのいちごさんプロジェクト第一弾として誕生しました。
-「昭和アイドルのキラキラした世界を、今もう一度届けたい。」
-そんな想いを込めて、一曲一曲を大切に制作しました。
-
-「星屑パスポート」は、夢へ向かって一歩踏み出す勇気を歌った曲です。
-皆さんに何度も聴いていただき、口ずさんでもらえるような、長く愛される一曲になってくれたら、とても嬉しいです。
-
-そして、私たちは本気で、この曲で紅白歌合戦を目指したいと思っています。
-大きな夢かもしれません。
-底の夢を皆さんと一緒に追いかけられたら、それ以上に幸せなことはありません。
-
-これからも、皆さんに笑顔や元気を届けられるよう、全力で頑張ります！
-ぜひ「星屑パスポート」をたくさん聴いて、たくさん広めてくださいね♪
-これからも応援、よろしくお願いします！`,
-
-            // 署名（メンバー名）
-            signature: `恋するオルゴール
-早坂恵美
-宮本直美`
-        };
-
-        /* ======================================================================
-           システム処理
-           ====================================================================== */
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("lp-title").innerText = CONFIG.title;
-            document.title = `${CONFIG.title} - 限定特典ページ`;
-            document.getElementById("lp-catchphrase").innerText = CONFIG.catchphrase;
-            
-            const imgEl = document.getElementById("lp-jacket");
-            imgEl.src = CONFIG.jacketUrl;
-
-            document.getElementById("lp-message").textContent = CONFIG.message;
-            document.getElementById("lp-signature").textContent = CONFIG.signature;
-            document.getElementById("current-year").innerText = new Date().getFullYear();
-
-            // MUSICボタン
-            const musicContent = document.getElementById("music-content");
-            if(CONFIG.musicYoutubeUrl) {
-                const btn = document.createElement("a");
-                btn.href = CONFIG.musicYoutubeUrl;
-                btn.target = "_blank";
-                btn.className = "btn-gold";
-                btn.innerText = "楽曲を聴く";
-                musicContent.appendChild(btn);
-            }
-
-            // MV
-            const mvContent = document.getElementById("mv-content");
-            if (CONFIG.mvYoutubeUrl) {
-                let videoId = "";
-                const url = CONFIG.mvYoutubeUrl;
-                if(url.includes("v=")) {
-                    videoId = url.split("v=")[1].split("&")[0];
-                } else if(url.includes("youtu.be/")) {
-                    videoId = url.split("youtu.be/")[1].split("?")[0];
-                }
-                
-                if(videoId) {
-                    mvContent.className = "video-container";
-                    mvContent.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
-                } else {
-                    mvContent.innerHTML = `<div class="coming-soon">Coming Soon...</div>`;
-                }
-            } else {
-                mvContent.innerHTML = `<div class="coming-soon">Coming Soon...</div>`;
-            }
-
-            // 演出トリガー
+        window.addEventListener('load', () => {
             setTimeout(() => {
-                const overlay = document.getElementById("opening-overlay");
-                const wrapper = document.getElementById("main-wrapper");
-                overlay.classList.add("fade-out");
-                wrapper.classList.add("visible");
-            }, 1000);
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(() => { 
+                    splash.style.display = 'none'; 
+                }, 1500);
+            }, 2000); 
         });
-
-        // 粒子アニメーション
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        let dots = [];
-        const maxDots = 25;
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        class Dot {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height + canvas.height;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.speedY = Math.random() * 0.4 + 0.1;
-                this.speedX = Math.sin(Math.random() * 2) * 0.2;
-                this.alpha = Math.random() * 0.5 + 0.2;
-            }
-            update() {
-                this.y -= this.speedY;
-                this.x += this.speedX;
-                if (this.y < 0) {
-                    this.y = canvas.height;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(243, 229, 171, ${this.alpha})`;
-                ctx.shadowBlur = 4;
-                ctx.shadowColor = '#d4af37';
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < maxDots; i++) {
-            let d = new Dot();
-            d.y = Math.random() * canvas.height;
-            dots.push(d);
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            dots.forEach(d => {
-                d.update();
-                d.draw();
-            });
-            requestAnimationFrame(animate);
-        }
-        animate();
     </script>
 </body>
 </html>
