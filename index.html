@@ -5,19 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>恋するオルゴール - 限定特典ページ</title>
     <style>
-        /* ==========================================================================
-           デザイン設定（カラー・フォントなど）
-           ========================================================================== */
         :root {
-            --bg-dark: #0a0e17;      /* 深いネイビー・夜空 */
-            --bg-box: #1a120b;       /* ダークブラウン・アンティーク木目調 */
-            --gold-primary: #d4af37; /* 真鍮・ゴールド */
-            --gold-light: #f3e5ab;   /* アイボリー・温かみのある光 */
-            --text-main: #f5f5f4;    /* メイン文字色（少し温かみのある白） */
-            --text-sub: #b5a48c;     /* サブ文字色（アンティークベージュ） */
+            --bg-dark: #0a0e17;
+            --bg-box: #1a120b;
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-main: #f5f5f4;
+            --text-sub: #b5a48c;
         }
 
-        /* 全体リセット & ベーススタイル */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -34,7 +30,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* 粒子（星屑）の背景レイヤー */
         #particles {
             position: fixed;
             top: 0;
@@ -45,9 +40,6 @@
             pointer-events: none;
         }
 
-        /* ==========================================================================
-           オープニング演出（フェードイン）
-           ========================================================================== */
         #opening-overlay {
             position: fixed;
             top: 0;
@@ -80,9 +72,6 @@
             100% { opacity: 1; }
         }
 
-        /* ==========================================================================
-           メインコンテンツ・レイアウト
-           ========================================================================== */
         .wrapper {
             position: relative;
             z-index: 10;
@@ -99,7 +88,6 @@
             transform: translateY(0);
         }
 
-        /* セクション共通 */
         section {
             background: linear-gradient(135deg, #1f160e 0%, var(--bg-box) 100%);
             border: 1px solid rgba(212, 175, 55, 0.25);
@@ -139,7 +127,6 @@
             opacity: 0.7;
         }
 
-        /* ① TOP セクション */
         .jacket-area {
             position: relative;
             width: 85%;
@@ -172,7 +159,6 @@
             white-space: pre-wrap;
         }
 
-        /* ② MUSIC & ③ MV ボタン・動画エリア */
         .btn-gold {
             display: inline-block;
             width: 90%;
@@ -219,7 +205,6 @@
             padding: 20px 0;
         }
 
-        /* ④ MESSAGE セクション */
         .message-text {
             font-size: 0.9rem;
             text-align: left;
@@ -237,7 +222,6 @@
             padding-right: 10px;
         }
 
-        /* ⑤ SECRET CONTENTS セクション */
         .secret-block {
             margin-bottom: 25px;
             text-align: left;
@@ -313,7 +297,6 @@
 
     <div class="wrapper" id="main-wrapper">
         
-        <!-- ① TOP SECTION -->
         <section id="sec-top">
             <div class="jacket-area">
                 <img id="lp-jacket" src="" alt="Jacket Image">
@@ -322,30 +305,25 @@
             <p class="catchphrase" id="lp-catchphrase">---</p>
         </section>
 
-        <!-- ② MUSIC SECTION -->
         <section id="sec-music">
             <h2>Music</h2>
             <div id="music-content"></div>
         </section>
 
-        <!-- ③ MUSIC VIDEO SECTION -->
         <section id="sec-mv">
             <h2>Music Video</h2>
             <div id="mv-content"></div>
         </section>
 
-        <!-- ④ MESSAGE SECTION -->
         <section id="sec-message">
             <h2>Message</h2>
             <p class="message-text" id="lp-message">---</p>
             <div class="message-signature" id="lp-signature"></div>
         </section>
 
-        <!-- ⑤ SECRET CONTENTS SECTION -->
         <section id="sec-secret">
             <h2>Secret Contents</h2>
             
-            <!-- シークレット1：制作秘話 -->
             <div class="secret-block">
                 <div class="secret-title">「恋するオルゴール」（制作秘話）</div>
                 <div class="secret-content-body" id="secret1-content"></div>
@@ -353,7 +331,6 @@
 
             <hr style="border: none; border-top: 1px dashed rgba(214, 175, 55, 0.15); margin-bottom: 25px;">
 
-            <!-- シークレット2：手書きメッセージボード (公開) -->
             <div class="secret-block">
                 <div class="secret-title">メンバーからの手書きスペシャルメッセージボード</div>
                 <div class="board-gallery">
@@ -373,25 +350,18 @@
     </div>
 
     <script>
-        /* ======================================================================
-           【データ設定エリア】
-           ====================================================================== */
         const CONFIG = {
             title: "恋するオルゴール",
             catchphrase: "あなたへ贈る、小さな音楽の贈り物。", 
             jacketUrl: "./image.png", 
 
-            // ② MUSICの動画リンク
             musicYoutubeUrl: "https://youtu.be/EyEAoAZDghk",
-
-            // ③ MUSIC VIDEOのリンク（Coming Soon）
             mvYoutubeUrl: "", 
 
             // ⑤ SECRET 1 (制作秘話) の設定
-            secret1Url: "https://youtu.be/wwAPJI-d3TM",       // YouTubeリンク
-            secret1ImgUrl: "./secret_talk.png.png",          // 指定されたファイル名
+            secret1Url: "https://youtu.be/wwAPJI-d3TM",
+            secret1ImgUrl: "./ChatGPT Image 2026年8月18日 13_28_52.png", // 元のファイル名
 
-            // ④ MESSAGEの文章
             message: `この度は「星屑パスポート」のカセットテープをご購入いただき、本当にありがとうございます！
 そして、いつも温かい応援を届けてくださる皆さんへ、心から感謝しています。
 
@@ -410,15 +380,11 @@
 ぜひ「星屑パスポート」をたくさん聴いて、たくさん広めてくださいね♪
 これからも応援、よろしくお願いします！`,
 
-            // 署名（メンバー名）
             signature: `恋するオルゴール
 早坂恵美
 宮本直美`
         };
 
-        /* ======================================================================
-           システム処理
-           ====================================================================== */
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("lp-title").innerText = CONFIG.title;
             document.title = `${CONFIG.title} - 限定特典ページ`;
@@ -431,7 +397,6 @@
             document.getElementById("lp-signature").textContent = CONFIG.signature;
             document.getElementById("current-year").innerText = new Date().getFullYear();
 
-            // MUSICボタン
             const musicContent = document.getElementById("music-content");
             if(CONFIG.musicYoutubeUrl) {
                 const btn = document.createElement("a");
@@ -442,7 +407,6 @@
                 musicContent.appendChild(btn);
             }
 
-            // MV
             const mvContent = document.getElementById("mv-content");
             if (CONFIG.mvYoutubeUrl) {
                 let videoId = "";
@@ -463,7 +427,6 @@
                 mvContent.innerHTML = `<div class="coming-soon">Coming Soon...</div>`;
             }
 
-            // SECRET 1 (制作秘話) 処理
             const secret1Content = document.getElementById("secret1-content");
             let secret1Html = "";
 
@@ -487,7 +450,6 @@
 
             secret1Content.innerHTML = secret1Html;
 
-            // 演出トリガー
             setTimeout(() => {
                 const overlay = document.getElementById("opening-overlay");
                 const wrapper = document.getElementById("main-wrapper");
@@ -496,7 +458,6 @@
             }, 1000);
         });
 
-        // 粒子アニメーション
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
         let dots = [];
